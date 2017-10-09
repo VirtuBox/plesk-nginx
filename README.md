@@ -22,7 +22,7 @@ others modules included :
 
 To run the script
 ```
-bash <(wget --no-check-certificate -O - https://git.virtubox.net/virtubox/plesk-script/src/master/nginx/build.sh)
+bash <(wget --no-check-certificate -O - https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/nginx/build.sh)
 ```
 
 
