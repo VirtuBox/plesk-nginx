@@ -80,8 +80,6 @@ patch -p1 < nginx__dynamic_tls_records_1.11.5*.patch
  
 make -j $(nproc)
 make install
-wget -O /etc/systemd/system/multi-user.target.wants/nginx.service https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/nginx/nginx.service
-
 
 sudo systemctl unmask sw-nginx
 sudo systemctl enable nginx
