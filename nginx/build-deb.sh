@@ -1,9 +1,9 @@
 #!/bin/bash
 apt-get install -y build-essential libtool automake autoconf zlib1g-dev libpcre3-dev libssl-dev libxslt1-dev libxml2-dev libgd2-xpm-dev libgeoip-dev libgoogle-perftools-dev libperl-dev
 cd /usr/local/src
-wget http://nginx.org/download/nginx-1.13.5.tar.gz
-tar -xzvf nginx-1.13.5.tar.gz
-mv nginx-1.13.5 nginx
+wget http://nginx.org/download/nginx-1.13.6.tar.gz
+tar -xzvf nginx-1.13.6.tar.gz
+mv nginx-1.13.6 nginx
 
 git clone https://github.com/FRiCKLE/ngx_cache_purge.git
 git clone https://github.com/openresty/memc-nginx-module.git
