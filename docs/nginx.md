@@ -1,9 +1,9 @@
 ### brotli directives
 
 ```
-        ##
+     ##
      # Brotli Settings
-        ##
+     ##
 
             brotli on;
             brotli_static on;
