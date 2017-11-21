@@ -13,12 +13,12 @@ others modules included :
 * echo-nginx-module
 * redis2-nginx-module
 * ngx_http_redis-0.3.8
-* srcache-nginx-modul
+* srcache-nginx-module
 * set-misc-nginx-module
 * ngx_coolkit
 * ngx_slowfs_cache
 * ngx_http_substitutions_filter_module
-* nginxdynamic_tls_records_1.11.5
+* nginx-dynamic-tls-records-patch_1.11.5
 
 To run the script :
 
@@ -31,6 +31,10 @@ Centos/Redhat :
 ```
 bash <(wget --no-check-certificate -O - https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/nginx/build-rpm.sh)
 ```
+### Features available Soon
 
+- Add menu to choose modules
+- pagespeed integration
+- custom nginx example configuration for redis-cache, headers etc ...
 
 
