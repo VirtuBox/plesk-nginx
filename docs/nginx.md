@@ -1,7 +1,7 @@
 ### brotli directives
 
 ```
-      ##
+        ##
      # Brotli Settings
         ##
 
