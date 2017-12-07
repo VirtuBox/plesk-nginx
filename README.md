@@ -1,4 +1,4 @@
-### Plesk Onyx Nginx from source with TLS 1.3 Support + Brotli and other additional modules
+### Plesk Onyx Custom Nginx with TLS 1.3 Support + Brotli + Pagespeed and other additional modules
 
 This is a script to compile nginx from source with some additional modules. It was currently tested on Ubuntu 16.04 LTS and on Centos 7.
 Feel free to open an issue if you have any error during the compilation.
