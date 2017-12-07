@@ -48,8 +48,8 @@ bash <(wget -O - https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/n
 
 ## Nginx configuration
 
-My current Nginx configuration is available here : [nginx.conf](https://github.com/VirtuBox/plesk-nginx/blob/master/etc/nginx/nginx.conf)
-And my SSL/TLS configuration with TLSv1.2 and TLSv1.3 is available here : [nginx.conf](https://github.com/VirtuBox/plesk-nginx/blob/master/etc/nginx/conf.d/ssl.conf)
+* My current Nginx configuration is available here : [nginx.conf](https://github.com/VirtuBox/plesk-nginx/blob/master/etc/nginx/nginx.conf)
+* My SSL/TLS configuration with TLSv1.2 and TLSv1.3 is available here : [nginx.conf](https://github.com/VirtuBox/plesk-nginx/blob/master/etc/nginx/conf.d/ssl.conf)
 
 You can apply the same configuration witht the command  : 
 ```
