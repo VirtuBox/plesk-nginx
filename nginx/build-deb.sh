@@ -93,8 +93,5 @@ make install
 sudo systemctl unmask sw-nginx
 sudo systemctl enable nginx
 sudo systemctl start nginx
-wget -O /etc/nginx/nginx.conf https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/etc/nginx/nginx.conf
-wget -O /etc/nginx/conf.d/ssl.conf https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/etc/nginx/conf.d/ssl.conf
-nginx -t && service nginx reload
-sudo systemctl restart nginx
+
 
