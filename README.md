@@ -6,6 +6,7 @@ Feel free to open an issue if you have any error during the compilation.
 **Use this script with caution and on a staging server first. Plesk or me will not be responsible if your server crash**
 
 -----
+Nginx current version : 1.13.7
 
 others modules included :
 * ngx_cache_purge
@@ -21,10 +22,14 @@ others modules included :
 * ngx_slowfs_cache
 * ngx_http_substitutions_filter_module
 * nginx-dynamic-tls-records-patch_1.11.5
+* ngx_pagespeed
 
-To compile nginx use the following command :
+-----
 
-### Ubuntu/Debian :
+## Compile Nginx
+-----
+**Ubuntu/Debian**
+
 Without pagespeed
 ```
 bash <(wget --no-check-certificate -O - https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/nginx/build-deb.sh)
@@ -34,8 +39,9 @@ With pagespeed
 ```
 bash <(wget --no-check-certificate -O - https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/nginx/build-deb-pagespeed.sh)
 ```
+-----
 
-Centos/Redhat :
+**Centos/Redhat**
 ```
 bash <(wget --no-check-certificate -O - https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/nginx/build-rpm.sh)
 ```
