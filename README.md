@@ -3,7 +3,7 @@
 This is a script to compile nginx from source with some additional modules. It was currently tested on Ubuntu 16.04 LTS and on Centos 7.
 Feel free to open an issue if you have any error during the compilation.
 
-**Use this script with caution and on a staging server first. Plesk or Me will not be responsible if your server crash**
+**Use this script with caution and on a staging server first. Plesk or me will not be responsible if your server crash**
 
 -----
 
@@ -22,11 +22,17 @@ others modules included :
 * ngx_http_substitutions_filter_module
 * nginx-dynamic-tls-records-patch_1.11.5
 
-To run the script :
+To compile nginx use the following command :
 
-Ubuntu/Debian :
+### Ubuntu/Debian :
+Without pagespeed
 ```
 bash <(wget --no-check-certificate -O - https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/nginx/build-deb.sh)
+```
+
+With pagespeed
+```
+bash <(wget --no-check-certificate -O - https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/nginx/build-deb-pagespeed.sh)
 ```
 
 Centos/Redhat :
@@ -36,7 +42,6 @@ bash <(wget --no-check-certificate -O - https://raw.githubusercontent.com/VirtuB
 ### Features available Soon
 
 - Add menu to choose modules
-- pagespeed integration
 - custom nginx example configuration for redis-cache, headers etc ...
 
 
