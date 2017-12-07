@@ -19,6 +19,7 @@ others modules included :
 * srcache-nginx-module
 * set-misc-nginx-module
 * ngx_coolkit
+* ngx_brotli
 * ngx_slowfs_cache
 * ngx_http_substitutions_filter_module
 * nginx-dynamic-tls-records-patch_1.11.5
