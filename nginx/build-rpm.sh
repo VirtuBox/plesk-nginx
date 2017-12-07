@@ -3,9 +3,9 @@ yum groupinstall "Development Tools"
 yum install -y git libtool automake autoconf zlib-devel pcre-devel openssl-devel libxslt-devel libxml2-devel libXpm-devel geoip-devel google-perftools-devel perl-devel gd-devel
 
 cd /usr/local/src
-wget http://nginx.org/download/nginx-1.13.6.tar.gz
-tar -xzvf nginx-1.13.6.tar.gz
-mv nginx-1.13.6 nginx
+wget http://nginx.org/download/nginx-1.13.7.tar.gz
+tar -xzvf nginx-1.13.7.tar.gz
+mv nginx-1.13.7 nginx
 
 git clone https://github.com/FRiCKLE/ngx_cache_purge.git
 git clone https://github.com/openresty/memc-nginx-module.git
