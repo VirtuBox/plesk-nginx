@@ -45,6 +45,20 @@ bash <(wget -O - https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/n
 ```
 bash <(wget -O - https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/nginx/build-rpm.sh)
 ```
+
+## Nginx configuration
+
+My current Nginx configuration is available here : [nginx.conf](https://github.com/VirtuBox/plesk-nginx/blob/master/etc/nginx/nginx.conf)
+And my SSL/TLS configuration with TLSv1.2 and TLSv1.3 is available here : [nginx.conf](https://github.com/VirtuBox/plesk-nginx/blob/master/etc/nginx/conf.d/ssl.conf)
+
+You can apply the same configuration witht the command  : 
+```
+wget -O /etc/nginx/nginx.conf https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/etc/nginx/nginx.conf
+wget -O /etc/nginx/conf.d/ssl.conf https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/etc/nginx/conf.d/ssl.conf
+nginx -t
+sudo systemctl restart nginx
+```
+
 ### Features available Soon
 
 - Add menu to choose modules
