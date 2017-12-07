@@ -60,7 +60,6 @@ patch -p1 < nginx__dynamic_tls_records_1.11.5*.patch
  --http-uwsgi-temp-path=/var/lib/nginx/uwsgi \
  --user=nginx \
  --group=nginx \
- --with-debug  \
  --with-pcre-jit  \
  --with-http_ssl_module  \
  --with-http_stub_status_module  \
