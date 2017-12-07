@@ -3,7 +3,7 @@
 This is a script to compile nginx from source with some additional modules. It was currently tested on Ubuntu 16.04 LTS and on Centos 7.
 Feel free to open an issue if you have any error during the compilation.
 
-== Use this script with caution and on a staging server first. Plesk or Me will not be responsible if your server crash ==
+**Use this script with caution and on a staging server first. Plesk or Me will not be responsible if your server crash**
 
 -----
 
