@@ -32,18 +32,18 @@ others modules included :
 
 Without pagespeed
 ```
-bash <(wget --no-check-certificate -O - https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/nginx/build-deb.sh)
+bash <(wget -O - https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/nginx/build-deb.sh)
 ```
 
 With pagespeed
 ```
-bash <(wget --no-check-certificate -O - https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/nginx/build-deb-pagespeed.sh)
+bash <(wget -O - https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/nginx/build-deb-pagespeed.sh)
 ```
 -----
 
 **Centos/Redhat**
 ```
-bash <(wget --no-check-certificate -O - https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/nginx/build-rpm.sh)
+bash <(wget -O - https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/nginx/build-rpm.sh)
 ```
 ### Features available Soon
 
