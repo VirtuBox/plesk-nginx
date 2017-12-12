@@ -23,6 +23,7 @@ others modules included :
 * ngx_slowfs_cache
 * ngx_http_substitutions_filter_module
 * nginx-dynamic-tls-records-patch_1.13.0+
+* ngx_http_auth_pam_module
 * ngx_pagespeed (optional)
 -----
 
