@@ -88,9 +88,9 @@ patch -p1 < nginx__dynamic_tls_records_1.13*.patch
  --add-module=/usr/local/src/set-misc-nginx-module  \
  --add-module=/usr/local/src/ngx_http_redis   \
  --add-module=/usr/local/src/ngx_brotli  \
---add-module=/usr/local/src/ngx_http_auth_pam_module \
+ --add-module=/usr/local/src/ngx_http_auth_pam_module \
  --with-openssl=/usr/local/src/openssl \
- --with-openssl-opt=enable-tls1_3 
+ --with-openssl-opt=enable-tls1_3
  
 make -j $(nproc)
 make install
