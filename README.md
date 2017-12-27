@@ -7,7 +7,7 @@ Feel free to open an issue if you have any error during the compilation.
 **Use this script with caution and on a staging server first. Plesk or me will not be responsible if your server crash**
 
 -----
-Nginx current version : 1.13.7
+Nginx current version : 1.13.8
 
 others modules included :
 * ngx_cache_purge
