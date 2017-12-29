@@ -66,4 +66,6 @@ sudo systemctl restart nginx
 - Add menu to choose modules
 - custom nginx example configuration for redis-cache, headers etc ...
 
+-----
+Published by <a href="https://virtubox.net" title="VirtuBox">VirtuBox</a>
 
