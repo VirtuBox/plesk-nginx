@@ -28,6 +28,12 @@ others modules included :
 * ngx_pagespeed (optional)
 -----
 
+**Compatible Operating System :**
+* Ubuntu 16.04 LTS
+* Debian 8 Jessie : Just run the command  `apt install libgeoip-dev libpam0g-dev libgd-dev libpcre3-dev libxslt1-dev sudo` before launching the script
+
+-----
+
 ## Compile Nginx
 -----
 
@@ -47,7 +53,7 @@ bash <(wget -O - https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/n
 * My current Nginx configuration is available here : [nginx.conf](https://github.com/VirtuBox/plesk-nginx/blob/master/etc/nginx/nginx.conf)
 * My SSL/TLS configuration with TLSv1.2 and TLSv1.3 is available here : [ssl.conf](https://github.com/VirtuBox/plesk-nginx/blob/master/etc/nginx/conf.d/ssl.conf)
 
-You can apply the same configuration witht the command  : 
+You can apply the same configuration with the command  : 
 ```
 wget -O /etc/nginx/nginx.conf https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/etc/nginx/nginx.conf
 wget -O /etc/nginx/conf.d/ssl.conf https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/etc/nginx/conf.d/ssl.conf
