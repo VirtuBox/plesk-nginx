@@ -1,7 +1,7 @@
 # Compile the latest nginx mainline release for Plesk Onyx
 
 This is a script to compile the latest nginx mailine release from source with some additional modules. <br>
-Tested & Working fine on Ubuntu 16.04 LTS. A script for Centos 7 is available on [Plesk community resources](https://talk.plesk.com/resources/script-for-building-replacement-of-default-sw-nginx-plesk-package-centos7-only.5/)<br>
+Tested & Working fine on Ubuntu 16.04 LTS and Debian 8 Jessie. A script for Centos 7 is available on [Plesk community resources](https://talk.plesk.com/resources/script-for-building-replacement-of-default-sw-nginx-plesk-package-centos7-only.5/)<br>
 Feel free to open an issue if you have any error during the compilation.
 
 **Use this script with caution and on a staging server first. Plesk or me will not be responsible if your server crash**
