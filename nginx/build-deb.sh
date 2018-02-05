@@ -100,5 +100,6 @@ make install
 sudo systemctl unmask sw-nginx
 sudo systemctl enable nginx
 sudo systemctl start nginx
+sudo apt-mark hold sw-nginx
 
 
