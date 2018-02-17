@@ -7,7 +7,7 @@ libpcre3-dev libgd-dev libssl-dev libxslt1-dev libxml2-dev libgeoip-dev \
 libgoogle-perftools-dev libperl-dev libpam0g-dev
 
 rm -rf /usr/local/src/*
-cd /usr/local/src
+cd /usr/local/src/nginx/ || exit
 
 git clone https://github.com/FRiCKLE/ngx_cache_purge.git
 git clone https://github.com/openresty/memc-nginx-module.git
@@ -30,23 +30,23 @@ git clone https://github.com/google/ngx_brotli.git
 cd ngx_brotli
 git submodule update --init --recursive
 
-cd /usr/local/src
+cd /usr/local/src/nginx/ || exit
 
 git clone https://github.com/openssl/openssl.git
 cd openssl
 git checkout tls1.3-draft-18
 
-cd /usr/local/src/
+cd /usr/local/src/nginx/ || exit
 
-bash <(curl -f -L -sS https://ngxpagespeed.com/install) -b /usr/local/src
+bash <(curl -f -L -sS https://ngxpagespeed.com/install) --ngx-pagespeed-version latest-beta -b /usr/local/src
 
-cd /usr/local/src/
+cd /usr/local/src/nginx/ || exit
 
 wget http://nginx.org/download/nginx-${NGINX_VER}.tar.gz
 tar -xzvf nginx-${NGINX_VER}.tar.gz
 mv nginx-${NGINX_VER} nginx
 
-cd /usr/local/src/nginx/
+cd /usr/local/src/nginx/ || exit
 
 wget https://raw.githubusercontent.com/cujanovic/nginx-dynamic-tls-records-patch/master/nginx__dynamic_tls_records_1.13.0%2B.patch
 patch -p1 < nginx__dynamic_tls_records_1.13*.patch
@@ -92,7 +92,7 @@ patch -p1 < nginx__dynamic_tls_records_1.13*.patch
  --add-module=/usr/local/src/srcache-nginx-module  \
  --add-module=/usr/local/src/set-misc-nginx-module  \
  --add-module=/usr/local/src/ngx_http_redis   \
- --add-module=/usr/local/src/ngx_pagespeed-latest-stable  \
+ --add-module=/usr/local/src/incubator-pagespeed-ngx-latest-beta  \
  --add-module=/usr/local/src/ngx_brotli  \
  --add-module=/usr/local/src/ngx_http_auth_pam_module \
  --with-openssl=/usr/local/src/openssl \
