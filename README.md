@@ -40,6 +40,8 @@ others modules included :
 ```
 bash <(wget -O - https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/nginx/build-deb.sh)
 ```
+![plesk-nginx](https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/plesk-nginx.png)
+
 -----
 
 ## Nginx configuration
