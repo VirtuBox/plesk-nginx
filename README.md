@@ -1,13 +1,12 @@
 # Compile the latest nginx mainline release for Plesk Onyx
 
-This is a script to compile the latest nginx mailine release from source with some additional modules. <br>
-Tested & Working fine on Ubuntu 16.04 LTS and Debian 8 Jessie. A script for Centos 7 is available on [Plesk community resources](https://talk.plesk.com/resources/script-for-building-replacement-of-default-sw-nginx-plesk-package-centos7-only.5/)<br>
-Feel free to open an issue if you have any error during the compilation.
+This script compile the latest nginx mailine release from source with additional modules with Plesk Onyx. <br>
 
+Feel free to open an issue if you have any error during the compilation.
 **Use this script with caution and on a staging server first. Plesk or me will not be responsible if your server crash**
 
 -----
-Nginx current version : 1.13.8
+Nginx current version : **v1.13.8**
 
 others modules included :
 * ngx_cache_purge
@@ -26,25 +25,20 @@ others modules included :
 * nginx-dynamic-tls-records-patch_1.13.0+
 * ngx_http_auth_pam_module
 * ngx_pagespeed (optional)
+* naxsi WAF (optional)
 -----
 
 **Compatible Operating System :**
 * Ubuntu 16.04 LTS
-* Debian 8 Jessie : Just run the command  `apt install libgeoip-dev libpam0g-dev libgd-dev libpcre3-dev libxslt1-dev sudo` before launching the script
+* Debian 8 Jessie
 
 -----
 
-## Compile Nginx
+## Usage 
 -----
 
-Without pagespeed
 ```
 bash <(wget -O - https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/nginx/build-deb.sh)
-```
-
-With pagespeed
-```
-bash <(wget -O - https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/nginx/build-deb-pagespeed.sh)
 ```
 -----
 
@@ -53,18 +47,10 @@ bash <(wget -O - https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/n
 * My current Nginx configuration is available here : [nginx.conf](https://github.com/VirtuBox/plesk-nginx/blob/master/etc/nginx/nginx.conf)
 * My SSL/TLS configuration with TLSv1.2 and TLSv1.3 is available here : [ssl.conf](https://github.com/VirtuBox/plesk-nginx/blob/master/etc/nginx/conf.d/ssl.conf)
 
-You can apply the same configuration with the command  : 
-```
-wget -O /etc/nginx/nginx.conf https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/etc/nginx/nginx.conf
-wget -O /etc/nginx/conf.d/ssl.conf https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/etc/nginx/conf.d/ssl.conf
-nginx -t
-sudo systemctl restart nginx
-```
+### Roadmap
 
-### Features available Soon
-
-- Add menu to choose modules
-- custom nginx example configuration for redis-cache, headers etc ...
+- Add nginx stable relase 
+- Add examples 
 
 -----
 Published by <a href="https://virtubox.net" title="VirtuBox">VirtuBox</a>
