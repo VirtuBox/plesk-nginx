@@ -6,7 +6,7 @@ Feel free to open an issue if you have any error during the compilation.
 **Use this script with caution and on a staging server first. Plesk or me will not be responsible if your server crash**
 
 -----
-Nginx current version : **v1.13.9**
+Nginx current version : **v1.13.10**
 
 others modules included :
 * ngx_cache_purge
@@ -18,7 +18,8 @@ others modules included :
 * ngx_http_redis-0.3.8
 * srcache-nginx-module
 * set-misc-nginx-module
-* ngx_brotli
+* Openssl 1.1.1
+* ngx_brotli (v1.0.2)
 * ngx_http_substitutions_filter_module
 * nginx-dynamic-tls-records-patch_1.13.0+
 * ngx_http_auth_pam_module
