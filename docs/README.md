@@ -1,5 +1,5 @@
 # Plesk Nginx 
-### Bash script to compile the latest Nginx mainlien release from source with additional modules
+### Bash script to compile Nginx from source with additional modules
 
 ![plesk-nginx](https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/plesk-nginx.png)
 
