@@ -1,20 +1,13 @@
-# Plesk Nginx 
-### Bash script to compile the latest Nginx mainlien release from source with additional modules
+# Compile the latest nginx mainline release for Plesk Onyx
 
-![plesk-nginx](https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/plesk-nginx.png)
+This script compile the latest nginx mailine release from source with additional modules with Plesk Onyx.  
 
-**Use this script with caution and on a staging server first. Plesk or me will not be responsible if your server crash**
-
------
-## Main Features
-* Compile the last Nginx mainline release
-* Ngx_Pagespeed
-* TLS v1.3 Support
-* Brotli 
-* Naxsi WAF
+Feel free to open an issue if you have any error during the compilation.
+**Use this script with caution and on a staging server first.**  
+**Plesk or me will not be responsible if your server crash**  
 
 -----
-Nginx current version : **v1.13.10**
+Nginx current version : **v1.13.11**
 
 others modules included :
 * ngx_cache_purge
@@ -32,8 +25,7 @@ others modules included :
 * nginx-dynamic-tls-records-patch_1.13.0
 * ngx_http_auth_pam_module
 * ngx_pagespeed (optional)
-* naxsi WAF (optional)  
-
+* naxsi WAF (optional)
 -----
 
 **Compatible Operating System :**
@@ -45,14 +37,12 @@ others modules included :
 ## Usage 
 -----
 
-```bash
+```
 bash <(wget -O - https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/plesk-nginx.sh)
 ```
-
+![plesk-nginx](https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/plesk-nginx.png)
 
 -----
-  
-Feel free to open an issue if you have any error during the compilation.
 
 ## Nginx configuration
 
@@ -66,3 +56,4 @@ Feel free to open an issue if you have any error during the compilation.
 
 -----
 Published by <a href="https://virtubox.net" title="VirtuBox">VirtuBox</a>
+

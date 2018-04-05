@@ -3,7 +3,8 @@
 
 ![plesk-nginx](https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/plesk-nginx.png)
 
-**Use this script with caution and on a staging server first. Plesk or me will not be responsible if your server crash**
+**Use this script with caution and on a staging server first.**  
+**Plesk or me will not be responsible if your server crash**  
 
 -----
 ## Main Features
@@ -14,7 +15,7 @@
 * Naxsi WAF
 
 -----
-Nginx current version : **v1.13.10**
+Nginx current version : **v1.13.11**
 
 others modules included :
 * ngx_cache_purge
