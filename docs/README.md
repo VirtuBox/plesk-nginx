@@ -15,7 +15,7 @@
 * Naxsi WAF
 
 -----
-Nginx current version : **v1.13.11**
+Nginx current version : **v1.13.12**
 
 others modules included :
 * ngx_cache_purge
@@ -28,7 +28,7 @@ others modules included :
 * srcache-nginx-module
 * set-misc-nginx-module
 * Openssl 1.1.1
-* ngx_brotli (v1.0.2)
+* ngx_brotli
 * ngx_http_substitutions_filter_module
 * nginx-dynamic-tls-records-patch_1.13.0
 * ngx_http_auth_pam_module
