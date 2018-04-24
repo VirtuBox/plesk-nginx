@@ -15,7 +15,7 @@
 * Naxsi WAF
 
 -----
-Nginx current version : **v1.13.12**
+Nginx current version : **v1.14.0**
 
 others modules included :
 * ngx_cache_purge
