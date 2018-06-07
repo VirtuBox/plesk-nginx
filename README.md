@@ -1,25 +1,30 @@
-# Plesk Nginx 
-### Bash script to compile Nginx from source with additional modules
+# Plesk Nginx
+
+Bash script to compile Nginx from source with additional modules
 
 ![plesk-nginx](https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/plesk-nginx.png)
 
-## plesk-nginx [Github page](https://virtubox.github.io/plesk-nginx/) now available !
+## plesk-nginx [Github page](https://virtubox.github.io/plesk-nginx/) now available
 
 **Use this script with caution and on a staging server first.**  
 **Plesk or me will not be responsible if your server crash**  
 
 -----
+
 ## Main Features
-* Compile the last Nginx mainline release
+
+* Compile the latest Nginx mainline or stable release
 * Ngx_Pagespeed
 * TLS v1.3 Support
-* Brotli 
+* Brotli
 * Naxsi WAF
 
 -----
-Nginx current version : **v1.14.0**
+Nginx current mainline release : **v1.15.0**  
+Nginx current stable release : **v1.14.0**  
 
 others modules included :
+
 * ngx_cache_purge
 * memc-nginx-module
 * headers-more-nginx-module
@@ -40,18 +45,19 @@ others modules included :
 -----
 
 **Compatible Operating System :**
+
 * Ubuntu 16.04 LTS
 * Debian 8 Jessie
 
 -----
 
-## Usage 
+## Usage
+
 -----
 
 ```bash
 bash <(wget -O - https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/plesk-nginx.sh)
 ```
-
 
 -----
   
@@ -64,8 +70,7 @@ Feel free to open an issue if you have any error during the compilation.
 
 ### Roadmap
 
-- Add nginx stable relase 
-- Add examples 
+* Add examples
 
 -----
-Published by <a href="https://virtubox.net" title="VirtuBox">VirtuBox</a>
+Published & maintained by <a href="https://virtubox.net" title="VirtuBox">VirtuBox</a>

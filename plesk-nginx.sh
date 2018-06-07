@@ -2,7 +2,8 @@
 
 # variables 
 
-NGINX_VER=1.14.0
+NGINX_STABLE=1.14.0
+NGINX_MAINLINE=1.15.0
 
 # Colors
 CSI="\\033["
@@ -21,31 +22,44 @@ clear
 # additionals modules choice
 
 echo ""
+echo "Welcome to the nginx-ee bash script."
+echo ""
+
+# additionals modules choice
+
+echo ""
 echo "Welcome to the plesk-nginx bash script."
 echo ""
 
 echo ""
-echo "Do you want Ngx_Pagespeed ? (y/n)"
-read -r pagespeed
+echo "Do you want to compile the latest Nginx Mainline [1] or Stable [2] Release ?"
+while [[ $NGINX_RELEASE != "1" && $NGINX_RELEASE != "2" ]]; do
+	read -p "Select an option [1-2]: " NGINX_RELEASE
+done
 echo ""
-echo "Do you want NAXSI WAF (still experimental)? (y/n)"
-read -r naxsi
+echo "Do you want Ngx_Pagespeed ?"
+while [[ $pagespeed != "y" && $pagespeed != "n" ]]; do
+	read -p "Select an option [y/n]: " pagespeed
+done
+echo ""
+echo ""
+echo "Do you want NAXSI WAF (still experimental)?"
+while [[ $naxsi != "y" && $naxsi != "n" ]]; do
+	read -p "Select an option [y/n]: " naxsi
+done
+echo ""
+
 
 # set additionals modules
 
-if [ "$naxsi" = "y" ]
+if   [ "$NGINX_RELEASE" = "1" ]
 then
-	ngx_naxsi="--add-module=/usr/local/src/naxsi/naxsi_src "
-else
-	ngx_naxsi=""
+	NGINX_RELEASE=$NGINX_MAINLINE
+else 
+	NGINX_RELEASE=$NGINX_STABLE
 fi
 
-if [ "$pagespeed" = "y" ]
-then
-	ngx_pagespeed="--add-module=/usr/local/src/incubator-pagespeed-ngx-latest-beta "
-else
-	ngx_pagespeed=""
-fi
+
 
 ## install prerequisites 
 
@@ -187,9 +201,9 @@ fi
 ## get nginx
 
 echo -ne "       Downloading nginx                      [..]\\r"
-wget http://nginx.org/download/nginx-${NGINX_VER}.tar.gz >> /tmp/plesk-nginx.log 2>&1
-tar -xzvf nginx-${NGINX_VER}.tar.gz >> /tmp/plesk-nginx.log 2>&1
-mv nginx-${NGINX_VER} nginx
+wget http://nginx.org/download/nginx-${NGINX_RELEASE}.tar.gz >> /tmp/plesk-nginx.log 2>&1
+tar -xzvf nginx-${NGINX_RELEASE}.tar.gz >> /tmp/plesk-nginx.log 2>&1
+mv nginx-${NGINX_RELEASE} nginx
 
 cd /usr/local/src/nginx/ || exit
 
