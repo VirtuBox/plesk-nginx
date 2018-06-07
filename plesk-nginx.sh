@@ -22,12 +22,6 @@ clear
 # additionals modules choice
 
 echo ""
-echo "Welcome to the nginx-ee bash script."
-echo ""
-
-# additionals modules choice
-
-echo ""
 echo "Welcome to the plesk-nginx bash script."
 echo ""
 
