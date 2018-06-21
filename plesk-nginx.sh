@@ -93,6 +93,7 @@ git clone https://github.com/openresty/redis2-nginx-module.git >> /tmp/plesk-ngi
 git clone https://github.com/openresty/srcache-nginx-module.git >> /tmp/plesk-nginx.log 2>&1
 git clone https://github.com/openresty/set-misc-nginx-module.git >> /tmp/plesk-nginx.log 2>&1
 git clone https://github.com/sto/ngx_http_auth_pam_module.git >> /tmp/plesk-nginx.log 2>&1
+git clone https://github.com/arut/nginx-rtmp-module.git >> /tmp/plesk-nginx.log 2>&1
 
 wget https://people.freebsd.org/~osa/ngx_http_redis-0.3.8.tar.gz >> /tmp/plesk-nginx.log 2>&1
 tar -zxf ngx_http_redis-0.3.8.tar.gz >> /tmp/plesk-nginx.log 2>&1
@@ -277,6 +278,7 @@ fi
  --add-module=/usr/local/src/ngx_http_redis   \
  --add-module=/usr/local/src/ngx_brotli  \
  --add-module=/usr/local/src/ngx_http_auth_pam_module \
+ --add-module=/usr/local/src/nginx-rtmp-module \
  $ngx_pagespeed \
  --with-openssl=/usr/local/src/openssl \
  --with-openssl-opt=enable-tls1_3 >> /tmp/plesk-nginx.log 2>&1
