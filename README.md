@@ -47,6 +47,7 @@ others modules included :
 
 **Compatible Operating System :**
 
+* Ubuntu 18.04
 * Ubuntu 16.04 LTS
 * Debian 8 Jessie
 
