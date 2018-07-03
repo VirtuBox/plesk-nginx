@@ -94,6 +94,7 @@ git clone https://github.com/openresty/srcache-nginx-module.git >> /tmp/plesk-ng
 git clone https://github.com/openresty/set-misc-nginx-module.git >> /tmp/plesk-nginx.log 2>&1
 git clone https://github.com/sto/ngx_http_auth_pam_module.git >> /tmp/plesk-nginx.log 2>&1
 git clone https://github.com/arut/nginx-rtmp-module.git >> /tmp/plesk-nginx.log 2>&1
+git clone https://github.com/nginx/nginx.git >> /tmp/plesk-nginx.log 2>&1
 
 wget https://people.freebsd.org/~osa/ngx_http_redis-0.3.8.tar.gz >> /tmp/plesk-nginx.log 2>&1
 tar -zxf ngx_http_redis-0.3.8.tar.gz >> /tmp/plesk-nginx.log 2>&1
@@ -137,7 +138,7 @@ cd /usr/local/src || exit
 
 git clone https://github.com/openssl/openssl.git >> /tmp/plesk-nginx.log 2>&1
 cd openssl || exit
-git checkout tls1.3-draft-18 >> /tmp/plesk-nginx.log 2>&1
+git checkout tls1.3-draft-19 >> /tmp/plesk-nginx.log 2>&1
 
 cd /usr/local/src || exit
 
@@ -198,7 +199,8 @@ fi
 echo -ne "       Downloading nginx                      [..]\\r"
 wget http://nginx.org/download/nginx-${NGINX_RELEASE}.tar.gz >> /tmp/plesk-nginx.log 2>&1
 tar -xzvf nginx-${NGINX_RELEASE}.tar.gz >> /tmp/plesk-nginx.log 2>&1
-mv nginx-${NGINX_RELEASE} nginx
+mv nginx-${NGINX_RELEASE} nginxZ
+cp nginxz/configure nginx/configure
 
 cd /usr/local/src/nginx/ || exit
 
