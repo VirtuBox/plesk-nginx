@@ -200,7 +200,7 @@ echo -ne "       Downloading nginx                      [..]\\r"
 wget http://nginx.org/download/nginx-${NGINX_RELEASE}.tar.gz >> /tmp/plesk-nginx.log 2>&1
 tar -xzvf nginx-${NGINX_RELEASE}.tar.gz >> /tmp/plesk-nginx.log 2>&1
 mv nginx-${NGINX_RELEASE} nginxZ
-cp nginxz/configure nginx/configure
+cp ./nginxZ/configure ./nginx
 
 cd /usr/local/src/nginx/ || exit
 
