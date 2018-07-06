@@ -285,6 +285,10 @@ fi
  --with-openssl=/usr/local/src/openssl \
  --with-openssl-opt=enable-tls1_3 >> /tmp/plesk-nginx.log 2>&1
  
+ adduser --system --no-create-home --shell /bin/false --group --disabled-login nginx
+ mkdir /var/lib/nginx/
+ mkdir /var/lib/nginx/body
+ 
  if [ $? -eq 0 ]; then
      echo -ne "       Configure nginx                        [${CGREEN}OK${CEND}]\\r"
      echo -ne "\\n"
