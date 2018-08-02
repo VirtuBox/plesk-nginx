@@ -3,7 +3,7 @@
 # variables 
 
 NGINX_STABLE=1.14.0
-NGINX_MAINLINE=1.15.0
+NGINX_MAINLINE=1.15.1
 
 # Colors
 CSI="\\033["
@@ -61,7 +61,7 @@ echo -ne "       Installing dependencies               [..]\\r"
 apt-get update >> /tmp/plesk-nginx.log 2>&1 
 apt-get install -y git build-essential libtool automake autoconf zlib1g-dev \
 libpcre3-dev libgd-dev libssl-dev libxslt1-dev libxml2-dev libgeoip-dev \
-libgoogle-perftools-dev libperl-dev libpam0g-dev libxslt1-dev >> /tmp/plesk-nginx.log 2>&1
+libgoogle-perftools-dev libperl-dev libpam0g-dev libxslt1-dev ffmpeg unzip zip >> /tmp/plesk-nginx.log 2>&1
 
 if [ $? -eq 0 ]; then
 			echo -ne "       Installing dependencies                [${CGREEN}OK${CEND}]\\r"
@@ -93,6 +93,8 @@ git clone https://github.com/openresty/redis2-nginx-module.git >> /tmp/plesk-ngi
 git clone https://github.com/openresty/srcache-nginx-module.git >> /tmp/plesk-nginx.log 2>&1
 git clone https://github.com/openresty/set-misc-nginx-module.git >> /tmp/plesk-nginx.log 2>&1
 git clone https://github.com/sto/ngx_http_auth_pam_module.git >> /tmp/plesk-nginx.log 2>&1
+git clone https://github.com/arut/nginx-rtmp-module.git >> /tmp/plesk-nginx.log 2>&1
+git clone https://github.com/nginx/nginx.git >> /tmp/plesk-nginx.log 2>&1
 
 wget https://people.freebsd.org/~osa/ngx_http_redis-0.3.8.tar.gz >> /tmp/plesk-nginx.log 2>&1
 tar -zxf ngx_http_redis-0.3.8.tar.gz >> /tmp/plesk-nginx.log 2>&1
@@ -136,7 +138,7 @@ cd /usr/local/src || exit
 
 git clone https://github.com/openssl/openssl.git >> /tmp/plesk-nginx.log 2>&1
 cd openssl || exit
-git checkout tls1.3-draft-18 >> /tmp/plesk-nginx.log 2>&1
+git checkout tls1.3-draft-19 >> /tmp/plesk-nginx.log 2>&1
 
 cd /usr/local/src || exit
 
@@ -197,7 +199,8 @@ fi
 echo -ne "       Downloading nginx                      [..]\\r"
 wget http://nginx.org/download/nginx-${NGINX_RELEASE}.tar.gz >> /tmp/plesk-nginx.log 2>&1
 tar -xzvf nginx-${NGINX_RELEASE}.tar.gz >> /tmp/plesk-nginx.log 2>&1
-mv nginx-${NGINX_RELEASE} nginx
+mv nginx-${NGINX_RELEASE} nginxZ
+cp ./nginxZ/configure ./nginx
 
 cd /usr/local/src/nginx/ || exit
 
@@ -277,9 +280,14 @@ fi
  --add-module=/usr/local/src/ngx_http_redis   \
  --add-module=/usr/local/src/ngx_brotli  \
  --add-module=/usr/local/src/ngx_http_auth_pam_module \
+ --add-module=/usr/local/src/nginx-rtmp-module \
  $ngx_pagespeed \
  --with-openssl=/usr/local/src/openssl \
  --with-openssl-opt=enable-tls1_3 >> /tmp/plesk-nginx.log 2>&1
+ 
+ adduser --system --no-create-home --shell /bin/false --group --disabled-login nginx
+ mkdir /var/lib/nginx/
+ mkdir /var/lib/nginx/body
  
  if [ $? -eq 0 ]; then
      echo -ne "       Configure nginx                        [${CGREEN}OK${CEND}]\\r"

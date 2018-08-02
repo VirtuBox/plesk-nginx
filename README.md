@@ -20,7 +20,7 @@ Bash script to compile Nginx from source with additional modules
 * Naxsi WAF
 
 -----
-Nginx current mainline release : **v1.15.0**  
+Nginx current mainline release : **v1.15.1**  
 Nginx current stable release : **v1.14.0**  
 
 others modules included :
@@ -34,6 +34,7 @@ others modules included :
 * ngx_http_redis-0.3.8
 * srcache-nginx-module
 * set-misc-nginx-module
+* nginx-rtmp-module
 * Openssl 1.1.1
 * ngx_brotli
 * ngx_http_substitutions_filter_module
@@ -46,6 +47,7 @@ others modules included :
 
 **Compatible Operating System :**
 
+* Ubuntu 18.04
 * Ubuntu 16.04 LTS
 * Debian 8 Jessie
 
