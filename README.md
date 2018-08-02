@@ -1,6 +1,6 @@
 # Plesk Nginx
 
-Bash script to compile Nginx from source with additional modules
+## Bash script to compile Nginx from source with additional modules
 
 ![plesk-nginx](https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/plesk-nginx.png)
 
@@ -15,12 +15,12 @@ Bash script to compile Nginx from source with additional modules
 
 * Compile the latest Nginx mainline or stable release
 * Ngx_Pagespeed
-* TLS v1.3 Support
+* TLS v1.3 draft 28
 * Brotli
 * Naxsi WAF
 
 -----
-Nginx current mainline release : **v1.15.0**  
+Nginx current mainline release : **v1.15.2**  
 Nginx current stable release : **v1.14.0**  
 
 others modules included :
@@ -34,12 +34,13 @@ others modules included :
 * ngx_http_redis-0.3.8
 * srcache-nginx-module
 * set-misc-nginx-module
-* Openssl 1.1.1
+* Openssl 1_1_1-pre8
 * ngx_brotli
 * ngx_http_substitutions_filter_module
 * nginx-dynamic-tls-records-patch_1.13.0
 * ngx_http_auth_pam_module
 * ngx_pagespeed (optional)
+* [virtual-host-traffic-status](https://github.com/vozlt/nginx-module-vts)
 * naxsi WAF (optional)  
 
 -----
