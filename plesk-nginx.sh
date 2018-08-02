@@ -3,7 +3,10 @@
 # variables 
 
 NGINX_STABLE=1.14.0
-NGINX_MAINLINE=1.15.0
+NGINX_MAINLINE=$(curl -sL https://nginx.org/en/download.html 2>&1 | grep -E -o "nginx\\-[0-9.]+\\.tar[.a-z]*" | awk -F "nginx-" '/.tar.gz$/ {print $2}' | sed -e 's|.tar.gz||g' | head -n 1 2>&1)
+NAXSI_VER=0.56
+OPENSSL_VER=OpenSSL_1_1_1-pre8
+DIR_SRC=/usr/local/src
 
 # Colors
 CSI="\\033["
@@ -53,15 +56,43 @@ else
 	NGINX_RELEASE=$NGINX_STABLE
 fi
 
+# Checking lsb_release package
+if [ ! -x /usr/bin/lsb_release ]; then
+    apt-get -y install lsb-release >> /tmp/nginx-ee.log 2>&1
+fi
 
+# install gcc-7 on Ubuntu 16.04 LTS
+distro_version=$(lsb_release -sc)
 
-## install prerequisites 
+if [ "$distro_version" == "xenial" ]; then
+    echo -ne "       Installing gcc-7                      [..]\\r"
+    {
+        add-apt-repository ppa:jonathonf/gcc-7.1 -y
+        apt-get update
+        apt-get install gcc-7 g++-7  -y
+    } >> /tmp/nginx-ee.log 2>&1
+    
+    export CC="/usr/bin/gcc-7"
+    export CXX="/usr/bin/gc++-7"
+    if [ $? -eq 0 ]; then
+        echo -ne "       Installing gcc-7                      [${CGREEN}OK${CEND}]\\r"
+        echo -ne "\\n"
+    else
+        echo -e "        Installing gcc-7                      [${CRED}FAIL${CEND}]"
+        echo ""
+        echo "Please look at /tmp/nginx-ee.log"
+        echo ""
+        exit 1
+    fi
+fi
+
+## install prerequisites
 
 echo -ne "       Installing dependencies               [..]\\r"
-apt-get update >> /tmp/plesk-nginx.log 2>&1 
+apt-get update >> /tmp/nginx-ee.log 2>&1
 apt-get install -y git build-essential libtool automake autoconf zlib1g-dev \
 libpcre3-dev libgd-dev libssl-dev libxslt1-dev libxml2-dev libgeoip-dev \
-libgoogle-perftools-dev libperl-dev libpam0g-dev libxslt1-dev >> /tmp/plesk-nginx.log 2>&1
+libgoogle-perftools-dev libperl-dev libpam0g-dev libxslt1-dev libbsd-dev zip unzip >> /tmp/nginx-ee.log 2>&1
 
 if [ $? -eq 0 ]; then
 			echo -ne "       Installing dependencies                [${CGREEN}OK${CEND}]\\r"
