@@ -124,7 +124,7 @@ fi
 ## clean previous compilation
 
 cd $DIR_SRC || exit
-rm -rf ./*.tar.gz
+rm -rf \*.tar.gz
 
 ## get additionals modules
 
