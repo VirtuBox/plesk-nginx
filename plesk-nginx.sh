@@ -70,6 +70,25 @@ else
     ngx_pagespeed=""
 fi
 
+## install prerequisites
+
+echo -ne "       Installing dependencies               [..]\\r"
+apt-get update >> /tmp/plesk-nginx.log 2>&1
+apt-get install -y git build-essential libtool automake autoconf zlib1g-dev \
+libpcre3-dev libgd-dev libssl-dev libxslt1-dev libxml2-dev libgeoip-dev \
+libgoogle-perftools-dev libperl-dev libpam0g-dev libxslt1-dev libbsd-dev zip unzip >> /tmp/plesk-nginx.log 2>&1
+
+if [ $? -eq 0 ]; then
+    echo -ne "       Installing dependencies                [${CGREEN}OK${CEND}]\\r"
+    echo -ne "\\n"
+else
+    echo -e "        Installing dependencies              [${CRED}FAIL${CEND}]"
+    echo ""
+    echo "Please look at /tmp/plesk-nginx.log"
+    echo ""
+    exit 1
+fi
+
 # Checking lsb_release package
 if [ ! -x /usr/bin/lsb_release ]; then
     apt-get -y install lsb-release >> /tmp/plesk-nginx.log 2>&1
@@ -100,25 +119,6 @@ if [ "$distro_version" == "xenial" ]; then
             exit 1
         fi
     fi
-fi
-
-## install prerequisites
-
-echo -ne "       Installing dependencies               [..]\\r"
-apt-get update >> /tmp/plesk-nginx.log 2>&1
-apt-get install -y git build-essential libtool automake autoconf zlib1g-dev \
-libpcre3-dev libgd-dev libssl-dev libxslt1-dev libxml2-dev libgeoip-dev \
-libgoogle-perftools-dev libperl-dev libpam0g-dev libxslt1-dev libbsd-dev zip unzip >> /tmp/plesk-nginx.log 2>&1
-
-if [ $? -eq 0 ]; then
-    echo -ne "       Installing dependencies                [${CGREEN}OK${CEND}]\\r"
-    echo -ne "\\n"
-else
-    echo -e "        Installing dependencies              [${CRED}FAIL${CEND}]"
-    echo ""
-    echo "Please look at /tmp/plesk-nginx.log"
-    echo ""
-    exit 1
 fi
 
 ## clean previous compilation
