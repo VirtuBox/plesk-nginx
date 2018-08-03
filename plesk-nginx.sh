@@ -85,11 +85,9 @@ else
 fi
 
 if [ "$RTMP" = "y" ]; then
-    cc_opt="'-g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2'"
     ngx_rtmp="--add-module=/usr/local/src/nginx-rtmp-module "
 else
     ngx_rtmp=""
-	cc_opt="'-g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2'"
 fi
 
 
@@ -444,7 +442,7 @@ echo -ne "       Configuring nginx                    [..]\\r"
 
 ./configure \
 $ngx_naxsi \
---with-cc-opt=="$cc_opt" \
+--with-cc-opt='-g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2' \
 --with-ld-opt='-Wl,-Bsymbolic-functions -fPIE -pie -Wl,-z,relro -Wl,-z,now' \
 --prefix=/etc/nginx \
 --conf-path=/etc/nginx/nginx.conf \
