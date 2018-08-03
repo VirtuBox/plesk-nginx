@@ -1,6 +1,8 @@
 #!/bin/bash
 
-# variables
+##################################
+# Variables
+##################################
 
 NGINX_STABLE=1.14.0
 NGINX_MAINLINE=$(curl -sL https://nginx.org/en/download.html 2>&1 | grep -E -o "nginx\\-[0-9.]+\\.tar[.a-z]*" | awk -F "nginx-" '/.tar.gz$/ {print $2}' | sed -e 's|.tar.gz||g' | head -n 1 2>&1)
@@ -14,6 +16,10 @@ CEND="${CSI}0m"
 CRED="${CSI}1;31m"
 CGREEN="${CSI}1;32m"
 
+##################################
+# Initial check & cleanup
+##################################
+
 # Check if user is root
 if [ "$(id -u)" != "0" ]; then
     echo "Error: You must be root to run this script, please use the root user to install the software."
@@ -22,7 +28,13 @@ fi
 
 clear
 
-# additionals modules choice
+# clean previous install log
+
+echo "" > /tmp/plesk-nginx.log
+
+##################################
+# Installation menu
+##################################
 
 echo ""
 echo "Welcome to the plesk-nginx bash script."
@@ -35,19 +47,20 @@ while [[ $NGINX_RELEASE != "1" && $NGINX_RELEASE != "2" ]]; do
 done
 echo ""
 echo "Do you want Ngx_Pagespeed ?"
-while [[ $pagespeed != "y" && $pagespeed != "n" ]]; do
-    read -p "Select an option [y/n]: " pagespeed
+while [[ $PAGESPEED != "y" && $PAGESPEED != "n" ]]; do
+    read -p "Select an option [y/n]: " PAGESPEED
 done
 echo ""
 echo ""
 echo "Do you want NAXSI WAF (still experimental)?"
-while [[ $naxsi != "y" && $naxsi != "n" ]]; do
-    read -p "Select an option [y/n]: " naxsi
+while [[ $NAXSI != "y" && $NAXSI != "n" ]]; do
+    read -p "Select an option [y/n]: " NAXSI
 done
 echo ""
 
-
-# set additionals modules
+##################################
+# Set nginx release and modules 
+##################################
 
 if   [ "$NGINX_RELEASE" = "1" ]
 then
@@ -56,21 +69,23 @@ else
     NGINX_RELEASE=$NGINX_STABLE
 fi
 
-if [ "$naxsi" = "y" ]
+if [ "$NAXSI" = "y" ]
 then
     ngx_naxsi="--add-module=/usr/local/src/naxsi/naxsi_src "
 else
     ngx_naxsi=""
 fi
 
-if [ "$pagespeed" = "y" ]
+if [ "$PAGESPEED" = "y" ]
 then
     ngx_pagespeed="--add-module=/usr/local/src/incubator-pagespeed-ngx-latest-beta "
 else
     ngx_pagespeed=""
 fi
 
-## install prerequisites
+##################################
+# Install dependencies
+##################################
 
 echo -ne "       Installing dependencies               [..]\\r"
 apt-get update >> /tmp/plesk-nginx.log 2>&1
@@ -89,12 +104,16 @@ else
     exit 1
 fi
 
+##################################
+# Install gcc7 on Ubuntu 16.04 LTS
+##################################
+
 # Checking lsb_release package
 if [ ! -x /usr/bin/lsb_release ]; then
     apt-get -y install lsb-release >> /tmp/plesk-nginx.log 2>&1
 fi
 
-# install gcc-7 on Ubuntu 16.04 LTS
+# install gcc-7 
 distro_version=$(lsb_release -sc)
 
 if [ "$distro_version" == "xenial" ]; then
@@ -121,12 +140,14 @@ if [ "$distro_version" == "xenial" ]; then
     fi
 fi
 
-## clean previous compilation
+##################################
+# Download additional modules
+##################################
+
+# clean previous compilation
 
 cd $DIR_SRC || exit
 rm -rf \*.tar.gz
-
-## get additionals modules
 
 echo -ne "       Downloading additionals modules        [..]\\r"
 
@@ -191,12 +212,9 @@ echo -ne "       Downloading additionals modules        [..]\\r"
     else
         { git clone https://github.com/vozlt/nginx-module-vts.git; }
     fi
-} >> /tmp/plesk-ee.log 2>&1
-
-cd $DIR_SRC || exit
-{
-    if [ ! -d $DIR_SRC/ngx_http_redis ]; then
-        wget https://people.freebsd.org/~osa/ngx_http_redis-0.3.8.tar.gz
+	if [ ! -d $DIR_SRC/ngx_http_redis ]; then
+        wget https://people.freebsd.org/~osa/ngx_http_redis-0.3.8.tar.gz -O ngx_http_redis-0.3.8.tar.gz
+        tar -xzvf ngx_http_redis-0.3.8.tar.gz
         mv ngx_http_redis-0.3.8 ngx_http_redis
     fi
 } >> /tmp/plesk-ee.log 2>&1
@@ -205,14 +223,16 @@ if [ $? -eq 0 ]; then
     echo -ne "       Downloading additionals modules        [${CGREEN}OK${CEND}]\\r"
     echo -ne "\\n"
 else
-    echo -e "        Downloading additionals modules      [${CRED}FAIL${CEND}]"
+    echo -e "       Downloading additionals modules      [${CRED}FAIL${CEND}]"
     echo ""
     echo "Please look at /tmp/plesk-nginx.log"
     echo ""
     exit 1
 fi
 
-# get brotli
+##################################
+# Download ngx_broti
+##################################
 
 cd $DIR_SRC || exit
 
@@ -241,7 +261,9 @@ else
     exit 1
 fi
 
-## get openssl
+##################################
+# Download OpenSSL
+##################################
 
 echo -ne "       Downloading openssl                    [..]\\r"
 
@@ -271,9 +293,12 @@ else
     exit 1
 fi
 
-## get naxsi
+##################################
+# Download Naxsi
+##################################
+
 cd $DIR_SRC || exit
-if [ "$naxsi" = "y" ]
+if [ "$NAXSI" = "y" ]
 then
     echo -ne "       Downloading naxsi                      [..]\\r"
     if [ -d $DIR_SRC/naxsi ]; then
@@ -296,9 +321,12 @@ then
     
 fi
 
-## get ngx_pagespeed
+##################################
+# Download Pagespeed
+##################################
+
 cd $DIR_SRC || exit
-if [ "$pagespeed" = "y" ]
+if [ "$PAGESPEED" = "y" ]
 then
     echo -ne "       Downloading pagespeed               [..]\\r"
     {
@@ -319,11 +347,14 @@ then
     fi
 fi
 
-## get nginx
+##################################
+# Download Nginx
+##################################
+
 cd $DIR_SRC || exit
 echo -ne "       Downloading nginx                      [..]\\r"
 if [ -d $DIR_SRC/nginx ]; then
-    rm -rf $DIR_SRC/nginx nginx-*
+    rm -rf $DIR_SRC/nginx
 fi
 wget http://nginx.org/download/nginx-${NGINX_RELEASE}.tar.gz >> /tmp/plesk-nginx.log 2>&1
 tar -xzvf nginx-${NGINX_RELEASE}.tar.gz >> /tmp/plesk-nginx.log 2>&1
@@ -342,15 +373,17 @@ else
     exit 1
 fi
 
-## apply dynamic tls records patch
+##################################
+# Apply Nginx patches
+##################################
 
-echo -ne "      applying nginx patch                   [..]\\r"
+echo -ne "       Applying nginx patch                   [..]\\r"
 
 wget -O nginx__dynamic_tls_records.patch https://raw.githubusercontent.com/cujanovic/nginx-dynamic-tls-records-patch/master/nginx__dynamic_tls_records_1.13.0%2B.patch >> /tmp/plesk-nginx.log 2>&1
 patch -p1 < nginx__dynamic_tls_records.patch >> /tmp/plesk-nginx.log 2>&1
 
 if [ $? -eq 0 ]; then
-    echo -ne "       applying nginx patch                   [${CGREEN}OK${CEND}]\\r"
+    echo -ne "       Applying nginx patch                   [${CGREEN}OK${CEND}]\\r"
     echo -ne "\\n"
 else
     echo -e "        applying nginx patch      [${CRED}FAIL${CEND}]"
@@ -360,6 +393,11 @@ else
     exit 1
 fi
 
+##################################
+# Configure Nginx
+##################################
+
+echo -ne "       Configuring nginx                    [..]\\r"
 
 ./configure \
 $ngx_naxsi \
@@ -411,25 +449,27 @@ $ngx_pagespeed \
 --sbin-path=/usr/sbin/nginx  >> /tmp/plesk-nginx.log 2>&1
 
 if [ $? -eq 0 ]; then
-    echo -ne "       Configure nginx                        [${CGREEN}OK${CEND}]\\r"
+    echo -ne "       Configuring nginx                      [${CGREEN}OK${CEND}]\\r"
     echo -ne "\\n"
 else
-    echo -e "        Configure nginx      [${CRED}FAIL${CEND}]"
+    echo -e "        Configuring nginx      [${CRED}FAIL${CEND}]"
     echo ""
     echo "Please look at /tmp/plesk-nginx.log"
     echo ""
     exit 1
 fi
 
-## compilation
+##################################
+# Compile Nginx
+##################################
 
-echo -ne "       Compile nginx                          [..]\\r"
+echo -ne "       Compiling nginx                        [..]\\r"
 
 make -j "$(nproc)" >> /tmp/plesk-nginx.log 2>&1
 make install >> /tmp/plesk-nginx.log 2>&1
 
 if [ $? -eq 0 ]; then
-    echo -ne "       Compile nginx                          [${CGREEN}OK${CEND}]\\r"
+    echo -ne "       Compiling nginx                        [${CGREEN}OK${CEND}]\\r"
     echo -ne "\\n"
 else
     echo -e "        Compile nginx      [${CRED}FAIL${CEND}]"
@@ -439,7 +479,9 @@ else
     exit 1
 fi
 
-## restart nginx with systemd
+##################################
+# Perform final tasks
+##################################
 
 {
     systemctl unmask sw-nginx
