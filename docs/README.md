@@ -7,7 +7,7 @@
 **Use this script with caution and on a staging server first.**  
 **Plesk or me will not be responsible if your server crash**  
 
------
+---
 
 ## Main Features
 
@@ -17,7 +17,8 @@
 * Brotli
 * Naxsi WAF
 
------
+---
+
 Nginx current mainline release : **v1.15.2**  
 Nginx current stable release : **v1.14.0**  
 
@@ -32,7 +33,7 @@ others modules included :
 * ngx_http_redis-0.3.8
 * srcache-nginx-module
 * set-misc-nginx-module
-* Openssl 1_1_1-pre8
+* Openssl 1.1.1-pre8
 * ngx_brotli
 * ngx_http_substitutions_filter_module
 * nginx-dynamic-tls-records-patch_1.13.0
@@ -41,24 +42,25 @@ others modules included :
 * [virtual-host-traffic-status](https://github.com/vozlt/nginx-module-vts)
 * naxsi WAF (optional)
 
------
+---
 
-**Compatible Operating System :**
+## Compatibility
 
-* Ubuntu 16.04 LTS
+* Ubuntu 16.04 LTS (Xenial)
+* Ubuntu 18.04 LTS (Bionic)
 * Debian 8 Jessie
-
------
+  
+---
 
 ## Usage
 
------
+---
 
 ```bash
 bash <(wget -O - https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/plesk-nginx.sh)
 ```
 
------
+---
   
 Feel free to open an issue if you have any error during the compilation.
 
@@ -71,5 +73,6 @@ Feel free to open an issue if you have any error during the compilation.
 
 * Add examples
 
------
+---
+
 Published & maintained by <a href="https://virtubox.net" title="VirtuBox">VirtuBox</a>
