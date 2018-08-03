@@ -442,7 +442,11 @@ echo -ne "       Configuring nginx                    [..]\\r"
 
 ./configure \
 $ngx_naxsi \
+if [ "$RTMP" = "y" ]; then
+--with-cc-opt='-g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wno-error=date-time -D_FORTIFY_SOURCE=2' \ 
+else
 --with-cc-opt='-g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2' \
+fi
 --with-ld-opt='-Wl,-Bsymbolic-functions -fPIE -pie -Wl,-z,relro -Wl,-z,now' \
 --prefix=/etc/nginx \
 --conf-path=/etc/nginx/nginx.conf \
