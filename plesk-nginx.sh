@@ -320,10 +320,8 @@ cd $DIR_SRC || exit
 if [ "$PAGESPEED" = "y" ]; then
 	echo -ne "       Downloading pagespeed               [..]\\r"
 	{
-		if [ -d $DIR_SRC/incubator-pagespeed-ngx-latest-beta ]; then
-		rm -rf incubator-pagespeed-ngx-latest-beta
-		fi
-		wget https://ngxpagespeed.com/install -O install
+		rm -rf incubator-pagespeed-ngx-latest-beta install
+		wget https://ngxpagespeed.com/install
 		chmod +x install
 		./install --ngx-pagespeed-version latest-beta -b $DIR_SRC
 	} >>/tmp/plesk-nginx.log 2>&1
