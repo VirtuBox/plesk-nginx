@@ -23,7 +23,7 @@
 Nginx current mainline release : **v1.15.2**  
 Nginx current stable release : **v1.14.0**  
 
-others modules included :
+additional modules included :
 
 * ngx_cache_purge
 * memc-nginx-module
@@ -34,19 +34,24 @@ others modules included :
 * ngx_http_redis-0.3.8
 * srcache-nginx-module
 * set-misc-nginx-module
-* Openssl 1_1_1-pre8
+* Openssl 1.1.1-pre8
 * ngx_brotli
 * ngx_http_substitutions_filter_module
 * nginx-dynamic-tls-records-patch_1.13.0
 * ngx_http_auth_pam_module
-* ngx_pagespeed (optional)
 * [virtual-host-traffic-status](https://github.com/vozlt/nginx-module-vts)
-* naxsi WAF (optional)  
+
+optional modules :
+
+* ngx_pagespeed
+* naxsi WAF
+* [nginx-rtmp-module](https://github.com/arut/nginx-rtmp-module)
 
 -----
 
-**Compatible Operating System :**
+## Compatibility
 
+* Ubuntu 18.04 LTS
 * Ubuntu 16.04 LTS
 * Debian 8 Jessie
 
