@@ -85,9 +85,11 @@ else
 fi
 
 if [ "$RTMP" = "y" ]; then
+    nginx_cc_opt=( [index]=--with-cc-opt='-g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wno-error=date-time -D_FORTIFY_SOURCE=2' )
     ngx_rtmp="--add-module=/usr/local/src/nginx-rtmp-module "
 else
     ngx_rtmp=""
+	nginx_cc_opt=( [index]=--with-cc-opt='-g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2' )
 fi
 
 
@@ -157,16 +159,16 @@ fi
 if [ "$RTMP" = "y" ]; then
     echo -ne "       Installing FFMPEG for RMTP module      [..]\\r"
     {
-        if [ "$distro_version" == "xenial" ]; then
-            if [ ! -f /etc/apt/sources.list.d/jonathonf-ubuntu-ffmpeg-4-xenial.list ]; then
-                add-apt-repository ppa:jonathonf/ffmpeg-4 -y
-                apt-get update
-                apt-get install ffmpeg -y
-            fi
-        else
+	if [ "$distro_version" == "xenial" ]; then
+        if [ ! -f /etc/apt/sources.list.d/jonathonf-ubuntu-ffmpeg-4-xenial.list ]; then
+            add-apt-repository ppa:jonathonf/ffmpeg-4 -y
+            apt-get update
             apt-get install ffmpeg -y
         fi
-    } >>/tmp/plesk-nginx.log 2>&1
+    else
+        apt-get install ffmpeg -y
+    fi
+	} >>/tmp/plesk-nginx.log 2>&1
     if [ $? -eq 0 ]; then
         echo -ne "       Installing FFMPEG for RMTP module      [${CGREEN}OK${CEND}]\\r"
         echo -ne "\\n"
@@ -442,11 +444,7 @@ echo -ne "       Configuring nginx                    [..]\\r"
 
 ./configure \
 $ngx_naxsi \
-if [ "$RTMP" = "y" ]; then \
-    { --with-cc-opt='-g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wno-error=date-time -D_FORTIFY_SOURCE=2'; } \
-else \
-    { --with-cc-opt='-g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2' ;} \
-fi \
+"${nginx_cc_opt[@]}" \
 --with-ld-opt='-Wl,-Bsymbolic-functions -fPIE -pie -Wl,-z,relro -Wl,-z,now' \
 --prefix=/etc/nginx \
 --conf-path=/etc/nginx/nginx.conf \
