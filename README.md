@@ -6,9 +6,7 @@
 
 ## plesk-nginx [Github page](https://virtubox.github.io/plesk-nginx/) now available
 
-**Use this script with caution and on a staging server first.**  
-**Plesk or me will not be responsible if your server crash**  
-
+Use this script with caution, Plesk or me will not be responsible if your server crash
 -----
 
 ## Main Features
@@ -51,9 +49,17 @@ optional modules :
 
 ## Compatibility
 
+### Operating System
+
 * Ubuntu 18.04 LTS
 * Ubuntu 16.04 LTS
 * Debian 8 Jessie
+
+### Plesk releases
+
+* 17.5.x
+* 17.8.x
+* 17.9.x
 
 -----
 
@@ -74,9 +80,11 @@ Feel free to open an issue if you have any error during the compilation.
 * My current Nginx configuration is available here : [nginx.conf](https://github.com/VirtuBox/plesk-nginx/blob/master/etc/nginx/nginx.conf)
 * My SSL/TLS configuration with TLSv1.2 and TLSv1.3 is available here : [ssl.conf](https://github.com/VirtuBox/plesk-nginx/blob/master/etc/nginx/conf.d/ssl.conf)
 
-### Roadmap
+## Roadmap
 
-* Add examples
+* [x] Add choice between stable & mainline release
+* [x] Add Nginx configuration examples
+* [ ] Add Cloudflare HPACK patch
 
 -----
 Published & maintained by <a href="https://virtubox.net" title="VirtuBox">VirtuBox</a>

@@ -126,28 +126,56 @@ fi
 # install gcc-7
 distro_version=$(lsb_release -sc)
 
-if [ "$distro_version" == "xenial" ]; then
-    if [ ! -f /etc/apt/sources.list.d/jonathonf-ubuntu-gcc-7_1-xenial.list ]; then
-        echo -ne "       Installing gcc-7                      [..]\\r"
-        {
-            add-apt-repository ppa:jonathonf/gcc-7.1 -y
-            apt-get update
-            apt-get install gcc-7 g++-7 -y
-        } >>/tmp/plesk-nginx.log 2>&1
-        
-        export CC="/usr/bin/gcc-7"
-        export CXX="/usr/bin/gc++-7"
-        if [ $? -eq 0 ]; then
-            echo -ne "       Installing gcc-7                      [${CGREEN}OK${CEND}]\\r"
-            echo -ne "\\n"
-        else
-            echo -e "        Installing gcc-7                      [${CRED}FAIL${CEND}]"
-            echo ""
-            echo "Please look at /tmp/plesk-nginx.log"
-            echo ""
-            exit 1
-        fi
-    fi
+if [ "$NGINX_RELEASE" = "1" ]; then
+	if [[ "$distro_version" == "xenial" || "$distro_version" == "bionic" ]]; then
+		if [ ! -f /etc/apt/sources.list.d/jonathonf-ubuntu-gcc-8_1-bionic.list ]; then
+			echo -ne "       Installing gcc-8                       [..]\\r"
+			{
+				apt-get install software-properties-common -y
+				add-apt-repository ppa:jonathonf/gcc-8.1 -y
+				apt-get update
+				apt-get install gcc-8 g++-8 -y
+			} >>/tmp/plesk-nginx.log 2>&1
+
+			export CC="/usr/bin/gcc-8"
+			export CXX="/usr/bin/gc++-8"
+			if [ $? -eq 0 ]; then
+				echo -ne "       Installing gcc-8                       [${CGREEN}OK${CEND}]\\r"
+				echo -ne "\\n"
+			else
+				echo -e "        Installing gcc-8                      [${CRED}FAIL${CEND}]"
+				echo ""
+				echo "Please look at /tmp/plesk-nginx.log"
+				echo ""
+				exit 1
+			fi
+		fi
+	fi
+else
+	if [ "$distro_version" == "xenial" ]; then
+		if [ ! -f /etc/apt/sources.list.d/jonathonf-ubuntu-gcc-7_1-xenial.list ]; then
+			echo -ne "       Installing gcc-7                       [..]\\r"
+			{
+				apt-get install software-properties-common -y
+				add-apt-repository ppa:jonathonf/gcc-7.1 -y
+				apt-get update
+				apt-get install gcc-7 g++-7 -y
+			} >>/tmp/plesk-nginx.log 2>&1
+
+			export CC="/usr/bin/gcc-7"
+			export CXX="/usr/bin/gc++-7"
+			if [ $? -eq 0 ]; then
+				echo -ne "       Installing gcc-7                       [${CGREEN}OK${CEND}]\\r"
+				echo -ne "\\n"
+			else
+				echo -e "        Installing gcc-7                      [${CRED}FAIL${CEND}]"
+				echo ""
+				echo "Please look at /tmp/plesk-nginx.log"
+				echo ""
+				exit 1
+			fi
+		fi
+	fi
 fi
 
 ##################################
@@ -349,7 +377,7 @@ if [ "$NAXSI" = "y" ]; then
     wget -O naxsi.tar.gz https://github.com/nbs-system/naxsi/archive/$NAXSI_VER.tar.gz >>/tmp/plesk-nginx.log 2>&1
     tar xvzf naxsi.tar.gz >>/tmp/plesk-nginx.log 2>&1
     mv naxsi-$NAXSI_VER naxsi
-    
+
     if [ $? -eq 0 ]; then
         echo -ne "       Downloading naxsi                      [${CGREEN}OK${CEND}]\\r"
         echo -ne "\\n"
@@ -360,7 +388,7 @@ if [ "$NAXSI" = "y" ]; then
         echo ""
         exit 1
     fi
-    
+
 fi
 
 ##################################
@@ -372,11 +400,11 @@ if [ "$PAGESPEED" = "y" ]; then
     echo -ne "       Downloading pagespeed               [..]\\r"
     {
         if [ -d $DIR_SRC/incubator-pagespeed-ngx-latest-beta ]; then
-            rm -rf incubator-pagespeed-ngx-latest-beta
+            rm -rf incubator-pagespeed-ngx-latest-beta build_ngx_pagespeed.sh install
         fi
-        wget https://ngxpagespeed.com/install -O install
-        chmod +x install
-        ./install --ngx-pagespeed-version latest-beta -b $DIR_SRC
+		wget https://raw.githubusercontent.com/pagespeed/ngx_pagespeed/master/scripts/build_ngx_pagespeed.sh
+		chmod +x build_ngx_pagespeed.sh
+		./build_ngx_pagespeed.sh --ngx-pagespeed-version latest-beta -b $DIR_SRC
     } >>/tmp/plesk-nginx.log 2>&1
     if [ $? -eq 0 ]; then
         echo -ne "       Downloading pagespeed                  [${CGREEN}OK${CEND}]\\r"
