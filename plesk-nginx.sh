@@ -1,5 +1,19 @@
 #!/bin/bash
 
+# Check if user is root
+if [ "$(id -u)" != "0" ]; then
+    echo "Error: You must be root to run this script, please use the root user to install the software."
+    exit 1
+fi
+
+clear
+
+# check if curl is installed
+
+if [ ! -x /usr/bin/curl ]; then
+    apt-get install curl >>/tmp/plesk-nginx.log 2>&1
+fi
+
 ##################################
 # Variables
 ##################################
@@ -19,14 +33,6 @@ CGREEN="${CSI}1;32m"
 ##################################
 # Initial check & cleanup
 ##################################
-
-# Check if user is root
-if [ "$(id -u)" != "0" ]; then
-    echo "Error: You must be root to run this script, please use the root user to install the software."
-    exit 1
-fi
-
-clear
 
 # clean previous install log
 
@@ -89,7 +95,7 @@ if [ "$RTMP" = "y" ]; then
     ngx_rtmp="--add-module=/usr/local/src/nginx-rtmp-module "
 else
     ngx_rtmp=""
-	nginx_cc_opt=( [index]=--with-cc-opt='-g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2' )
+    nginx_cc_opt=( [index]=--with-cc-opt='-g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2' )
 fi
 
 
@@ -101,7 +107,7 @@ echo -ne "       Installing dependencies               [..]\\r"
 apt-get update >>/tmp/plesk-nginx.log 2>&1
 apt-get install -y git build-essential libtool automake autoconf zlib1g-dev \
 libpcre3-dev libgd-dev libssl-dev libxslt1-dev libxml2-dev libgeoip-dev \
-libgoogle-perftools-dev libperl-dev libpam0g-dev libxslt1-dev libbsd-dev zip unzip >>/tmp/plesk-nginx.log 2>&1
+libgoogle-perftools-dev libperl-dev libpam0g-dev libxslt1-dev libbsd-dev zip unzip gnupg gnupg2 >>/tmp/plesk-nginx.log 2>&1
 
 if [ $? -eq 0 ]; then
     echo -ne "       Installing dependencies                [${CGREEN}OK${CEND}]\\r"
@@ -115,7 +121,7 @@ else
 fi
 
 ##################################
-# Install gcc7 on Ubuntu 16.04 LTS
+# Install gcc7 or gcc8 from PPA
 ##################################
 
 # Checking lsb_release package
@@ -126,63 +132,66 @@ fi
 # install gcc-7
 distro_version=$(lsb_release -sc)
 
-if [ "$NGINX_RELEASE" = "1" ]; then
-	if [[ "$distro_version" == "xenial" || "$distro_version" == "bionic" ]]; then
-		if [ ! -f /etc/apt/sources.list.d/jonathonf-ubuntu-gcc-8_1-bionic.list ]; then
-			echo -ne "       Installing gcc-8                       [..]\\r"
-			{
-				apt-get install software-properties-common -y
-				add-apt-repository ppa:jonathonf/gcc-8.1 -y
-				apt-get update
-				apt-get install gcc-8 g++-8 -y
-			} >>/tmp/plesk-nginx.log 2>&1
+if [[ "$NGINX_RELEASE" = "1" && "$RTMP" = "n" ]]; then
+    if [[ "$distro_version" == "xenial" || "$distro_version" == "bionic" ]]; then
+        if [[ ! -f /etc/apt/sources.list.d/jonathonf-ubuntu-gcc-8_1-bionic.list || ! -f /etc/apt/sources.list.d/jonathonf-ubuntu-gcc-8_1-xenial.list ]]; then
+            echo -ne "       Installing gcc-8                       [..]\\r"
+            {
+                apt-get install software-properties-common -y
+                add-apt-repository ppa:jonathonf/gcc-8.1 -y
+                apt-get update
+                apt-get install gcc-8 g++-8 -y
+            } >>/tmp/plesk-nginx.log 2>&1
 
-			export CC="/usr/bin/gcc-8"
-			export CXX="/usr/bin/gc++-8"
-			if [ $? -eq 0 ]; then
-				echo -ne "       Installing gcc-8                       [${CGREEN}OK${CEND}]\\r"
-				echo -ne "\\n"
-			else
-				echo -e "        Installing gcc-8                      [${CRED}FAIL${CEND}]"
-				echo ""
-				echo "Please look at /tmp/plesk-nginx.log"
-				echo ""
-				exit 1
-			fi
-		fi
-	fi
+            export CC="/usr/bin/gcc-8"
+            export CXX="/usr/bin/gc++-8"
+            if [ $? -eq 0 ]; then
+                echo -ne "       Installing gcc-8                       [${CGREEN}OK${CEND}]\\r"
+                echo -ne "\\n"
+            else
+                echo -e "        Installing gcc-8                      [${CRED}FAIL${CEND}]"
+                echo ""
+                echo "Please look at /tmp/plesk-nginx.log"
+                echo ""
+                exit 1
+            fi
+        fi
+    fi
 else
-	if [ "$distro_version" == "xenial" ]; then
-		if [ ! -f /etc/apt/sources.list.d/jonathonf-ubuntu-gcc-7_1-xenial.list ]; then
-			echo -ne "       Installing gcc-7                       [..]\\r"
-			{
-				apt-get install software-properties-common -y
-				add-apt-repository ppa:jonathonf/gcc-7.1 -y
-				apt-get update
-				apt-get install gcc-7 g++-7 -y
-			} >>/tmp/plesk-nginx.log 2>&1
+    if [ "$distro_version" == "xenial" ]; then
+        if [ ! -f /etc/apt/sources.list.d/jonathonf-ubuntu-gcc-7_1-xenial.list ]; then
+            echo -ne "       Installing gcc-7                       [..]\\r"
+            {
+                apt-get install software-properties-common -y
+                add-apt-repository ppa:jonathonf/gcc-7.1 -y
+                apt-get update
+                apt-get install gcc-7 g++-7 -y
+            } >>/tmp/plesk-nginx.log 2>&1
 
-			export CC="/usr/bin/gcc-7"
-			export CXX="/usr/bin/gc++-7"
-			if [ $? -eq 0 ]; then
-				echo -ne "       Installing gcc-7                       [${CGREEN}OK${CEND}]\\r"
-				echo -ne "\\n"
-			else
-				echo -e "        Installing gcc-7                      [${CRED}FAIL${CEND}]"
-				echo ""
-				echo "Please look at /tmp/plesk-nginx.log"
-				echo ""
-				exit 1
-			fi
-		fi
-	fi
+            export CC="/usr/bin/gcc-7"
+            export CXX="/usr/bin/gc++-7"
+            if [ $? -eq 0 ]; then
+                echo -ne "       Installing gcc-7                       [${CGREEN}OK${CEND}]\\r"
+                echo -ne "\\n"
+            else
+                echo -e "        Installing gcc-7                      [${CRED}FAIL${CEND}]"
+                echo ""
+                echo "Please look at /tmp/plesk-nginx.log"
+                echo ""
+                exit 1
+            fi
+        fi
+    fi
+    if [ "$distro_version" == "bionic" ]; then
+        export CC="/usr/bin/gcc-7"
+        export CXX="/usr/bin/gc++-7"
+    fi
+
 fi
 
 ##################################
 # Install ffmpeg for rtmp module
 ##################################
-
-
 
 if [ "$RTMP" = "y" ]; then
     echo -ne "       Installing FFMPEG for RMTP module      [..]\\r"
@@ -216,7 +225,7 @@ fi
 # clean previous compilation
 
 cd $DIR_SRC || exit
-rm -rf \*.tar.gz
+rm -rf $DIR_SRC/*.tar.gz $DIR_SRC/nginx-1.*
 
 echo -ne "       Downloading additionals modules        [..]\\r"
 
@@ -427,9 +436,11 @@ echo -ne "       Downloading nginx                      [..]\\r"
 if [ -d $DIR_SRC/nginx ]; then
     rm -rf $DIR_SRC/nginx
 fi
-wget http://nginx.org/download/nginx-${NGINX_RELEASE}.tar.gz >>/tmp/plesk-nginx.log 2>&1
-tar -xzvf nginx-${NGINX_RELEASE}.tar.gz >>/tmp/plesk-nginx.log 2>&1
-mv nginx-${NGINX_RELEASE} nginx
+{
+    wget http://nginx.org/download/nginx-${NGINX_VER}.tar.gz
+    tar -xzf nginx-${NGINX_VER}.tar.gz
+    mv nginx-${NGINX_VER} nginx
+} >>/tmp/plesk-nginx.log 2>&1
 
 cd $DIR_SRC/nginx/ || exit
 
@@ -476,8 +487,8 @@ $ngx_naxsi \
 --with-ld-opt='-Wl,-Bsymbolic-functions -fPIE -pie -Wl,-z,relro -Wl,-z,now' \
 --prefix=/etc/nginx \
 --conf-path=/etc/nginx/nginx.conf \
---error-log-path=/var/log/nginx/error.log \
 --http-log-path=/var/log/nginx/access.log \
+--error-log-path=/var/log/nginx/error.log \
 --lock-path=/var/lock/nginx.lock \
 --pid-path=/var/run/nginx.pid \
 --http-client-body-temp-path=/var/lib/nginx/body \
@@ -537,8 +548,10 @@ fi
 
 echo -ne "       Compiling nginx                        [..]\\r"
 
-make -j "$(nproc)" >>/tmp/plesk-nginx.log 2>&1
-make install >>/tmp/plesk-nginx.log 2>&1
+{
+    make -j "$(nproc)"
+    make install
+} >>/tmp/plesk-nginx.log 2>&1
 
 if [ $? -eq 0 ]; then
     echo -ne "       Compiling nginx                        [${CGREEN}OK${CEND}]\\r"
