@@ -479,7 +479,7 @@ fi
 # Configure Nginx
 ##################################
 
-echo -ne "       Configuring nginx                    [..]\\r"
+echo -ne "       Configuring nginx                      [..]\\r"
 
 ./configure \
 $ngx_naxsi \
