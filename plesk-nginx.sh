@@ -73,9 +73,9 @@ echo ""
 ##################################
 
 if [ "$NGINX_RELEASE" = "1" ]; then
-    NGINX_RELEASE=$NGINX_MAINLINE
+    NGINX_VER=$NGINX_MAINLINE
 else
-    NGINX_RELEASE=$NGINX_STABLE
+    NGINX_VER=$NGINX_STABLE
 fi
 
 if [ "$NAXSI" = "y" ]; then
