@@ -12,14 +12,12 @@ Use this script with caution, Plesk or me will not be responsible if your server
 ## Main Features
 
 * Compile the latest Nginx mainline or stable release
-* Ngx_Pagespeed
-* TLS v1.3 draft 28
-* Brotli
-* Naxsi WAF
+* Additional modules support
+* TLS v1.3 Support draft 28
 
 -----
-Nginx current mainline release : **v1.15.2**  
-Nginx current stable release : **v1.14.0**  
+Nginx current mainline release : **v1.15.2**
+Nginx current stable release : **v1.14.0**
 
 additional modules included :
 
@@ -32,7 +30,7 @@ additional modules included :
 * ngx_http_redis-0.3.8
 * srcache-nginx-module
 * set-misc-nginx-module
-* Openssl 1.1.1-pre8
+* Openssl 1.1.1 (OpenSSL_1_1_1-pre9)
 * ngx_brotli
 * ngx_http_substitutions_filter_module
 * nginx-dynamic-tls-records-patch_1.13.0
@@ -72,7 +70,7 @@ bash <(wget -O - https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/p
 ```
 
 -----
-  
+
 Feel free to open an issue if you have any error during the compilation.
 
 ## Nginx configuration
