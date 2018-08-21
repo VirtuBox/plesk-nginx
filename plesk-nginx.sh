@@ -43,7 +43,7 @@ echo "" >/tmp/plesk-nginx.log
 ##################################
 
 echo ""
-echo "Welcome to the plesk-nginx bash script."
+echo "Welcome to the plesk-nginx bash script. v2.15.2.1"
 echo ""
 
 echo ""
