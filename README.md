@@ -2,8 +2,6 @@
 
 ## Plesk-Nginx bash script is now included in [nginx-ee](https://virtubox.github.io/nginx-ee/), this repository will not receive updates anymore.
 
-## Bash script to compile Nginx from source with additional modules
-
 ![plesk-nginx](https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/plesk-nginx.png)
 
 ## plesk-nginx [Github page](https://virtubox.github.io/plesk-nginx/) now available
