@@ -1,5 +1,7 @@
 # Plesk Nginx
 
+## Plesk-Nginx bash script is now included in [nginx-ee](https://virtubox.github.io/nginx-ee/), this repository will not receive updates anymore.
+
 ## Bash script to compile Nginx from source with additional modules
 
 ![plesk-nginx](https://raw.githubusercontent.com/VirtuBox/plesk-nginx/master/plesk-nginx.png)
@@ -79,12 +81,6 @@ Feel free to open an issue if you have any error during the compilation.
 
 * My current Nginx configuration is available here : [nginx.conf](https://github.com/VirtuBox/plesk-nginx/blob/master/etc/nginx/nginx.conf)
 * My SSL/TLS configuration with TLSv1.2 and TLSv1.3 is available here : [ssl.conf](https://github.com/VirtuBox/plesk-nginx/blob/master/etc/nginx/conf.d/ssl.conf)
-
-## Roadmap
-
-* [x] Add choice between stable & mainline release
-* [x] Add Nginx configuration examples
-* [ ] Add Cloudflare HPACK patch
 
 -----
 Published & maintained by <a href="https://virtubox.net" title="VirtuBox">VirtuBox</a>
